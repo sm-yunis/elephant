@@ -8,19 +8,18 @@ public class Library {
 
     public void run() {
 
-        EntityManagerFactory emf  = null;
+        EntityManagerFactory emf = null;
         EntityManager entityManager = null;
 
         try {
             emf = Persistence.createEntityManagerFactory("elephant-persistence-unit");
             entityManager = emf.createEntityManager();
             entityManager.getTransaction().begin();
-            entityManager.persist(new Person("Eman", 27, false));
+            entityManager.persist(new Person("Bedri", 1, true));
             entityManager.getTransaction().commit();
 
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
+        } 
+        finally {
             entityManager.close();
             emf.close();
         }
