@@ -8,14 +8,22 @@ public class Library {
 
     public void run() {
 
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("elephant-persistence-unit");
+        EntityManagerFactory emf  = null;
+        EntityManager entityManager = null;
 
-        EntityManager entityManager = emf.createEntityManager();
+        try {
+            emf = Persistence.createEntityManagerFactory("elephant-persistence-unit");
+            entityManager = emf.createEntityManager();
+            entityManager.getTransaction().begin();
+            entityManager.persist(new Person("Eman", 27, false));
+            entityManager.getTransaction().commit();
 
-        entityManager.getTransaction().begin();
-        entityManager.persist(new Person("Sumeya",23,false));
-        entityManager.getTransaction().commit();
-        entityManager.close();
-        emf.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            entityManager.close();
+            emf.close();
+        }
+
     }
 }
